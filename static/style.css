@@ -1,0 +1,147 @@
+:root {
+  --dark: #000;
+  --light: ghostwhite;
+
+  --outline-width: 1px;
+  --neg-outline-width: calc( var(--outline-width) * -1);
+
+  --circle-width: 20px;
+}
+
+
+* { 
+  margin: 0;
+  font-family: 'ff_din';
+  color: white;
+  transition-duration: 0.25s;
+}
+
+body {
+  background-color: var(--dark);
+}
+
+/* ------------------------------ */
+
+#title {
+  width: 100%;
+  height: 10vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#image-preview {
+  display: none;
+}
+
+#image-downloader {
+  display: none;
+}
+
+#image-uploader {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#file {
+  opacity: 0;
+  position: absolute;
+}
+
+#file + label {
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid;
+  width: 300px;
+  height: 300px;
+  cursor: pointer;
+
+  font-size: 89px;
+  text-align: center;
+  line-height: 300px;
+}
+
+#upload-button {
+  background-color: transparent;
+  border: 0;
+  outline: none;
+  width: 100%;
+  font-size: 34px;
+  height: 10vh;
+}
+
+#display-image {
+  height: 70vh;
+  margin: auto;
+  display: block;
+}
+
+#download-link {
+  background-color: transparent;
+  border: 0;
+  outline: none;
+  width: 100%;
+  font-size: 34px;
+  height: 10vh;
+  text-align: center;
+  display: block;
+  line-height: 10vh;
+}
+
+#file + label:hover, #upload-button:hover, #download-link:hover {
+  background-color: #111;
+}
+
+.top {
+  flex: 0 0 100%;
+  height: 80vh;
+  position: relative
+}
+
+.bottom {
+  flex: 0 0 100%;
+  height: 10vh;
+  position: relative
+}
+
+/* ------------------------------ */
+
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Source+Code+Pro:200,300,400');
+
+@font-face {
+    font-family: 'ff_din';
+    src: url('./font/Imcrjntewikxpsmnpdqwsaqikau.eot');
+    src: url('./font/Imcrjntewikxpsmnpdqwsaqikau.eot?#iefix') format('embedded-opentype'),
+        url('./font/Imcrjntewikxpsmnpdqwsaqikau.woff2') format('woff2'),
+        url('./font/Imcrjntewikxpsmnpdqwsaqikau.woff') format('woff'),
+        url('./font/Imcrjntewikxpsmnpdqwsaqikau.ttf') format('truetype'),
+        url('./font/Imcrjntewikxpsmnpdqwsaqikau.svg#Imcrjntewikxpsmnpdqwsaqikau') format('svg');
+    font-weight: bold;
+    font-style: normal;
+}
+
+h1 {
+    text-transform: uppercase;
+    font-size: 55px;
+    line-height: 55px;
+    display: block;
+}
+
+p {
+    font-family: 'Source Code Pro', monospace;
+    font-size: 13px;
+    line-height: 21px;
+    font-weight: 200;
+}
+
+.outline {
+    text-shadow: var(--neg-outline-width) var(--neg-outline-width) 0 var(--light),
+        var(--outline-width) var(--neg-outline-width) 0 var(--light),
+        var(--neg-outline-width) var(--outline-width) 0 var(--light), 
+        var(--outline-width) var(--outline-width) 0 var(--light);
+    color: var(--dark);
+}
