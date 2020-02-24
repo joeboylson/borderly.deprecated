@@ -95,4 +95,7 @@ if __name__ == '__main__':
   IS_PRODUCTION = os.environ.get('PYTHON_ENV') == 'PRODUCTION'
   DEBUG = True if not IS_PRODUCTION else False
   PORT = 5000 if not IS_PRODUCTION else os.environ.get('PORT')
+
+  print('::: {}'.format(PORT))
+
   app.run(debug=DEBUG, port=PORT)
