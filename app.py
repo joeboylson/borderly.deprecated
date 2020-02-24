@@ -12,7 +12,6 @@ from PIL import Image, ImageOps
 
 app = Flask(__name__, static_url_path="", static_folder="static")
 
-
 # --------------------------------------------------------------------------------
 # CONSTANTS
 # --------------------------------------------------------------------------------
@@ -30,6 +29,8 @@ def add_border(input_image, output_image, border, color=0):
   output_image: filepath
   border: number
   color: number or string(accepts hex codes) 
+  //
+  returns: None -- saves image to "static/images"
   '''
 
   img = Image.open(input_image)
@@ -42,6 +43,11 @@ def add_border(input_image, output_image, border, color=0):
   bimg.save('static/images/{}'.format(output_image))
 
 def append_suffix(filename):
+  '''
+  filename: string
+  //
+  returns: filename + "-BORDERLY" + extension
+  '''
   return "{0}{2}.{1}".format(*filename.rsplit('.', 1) + ['-BORDERLY'])
 
 
