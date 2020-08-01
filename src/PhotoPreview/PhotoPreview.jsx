@@ -12,19 +12,15 @@ const PhotoPreview = (props) => {
 
     let _w = window.innerWidth;
     let _h = window.innerHeight - 89;
-    let imageIsPortrait = previewImage.height > previewImage.width;
+    let _pw = previewImage.width;
+    let _ph = previewImage.height;
+    let sizeForHeight = (_ph / _pw) > (_h / _w);
 
-    if (!imageIsPortrait) {
-      return { width: _w, height: 'auto'}
-    }
+    let ratio = sizeForHeight ? _ph / _h : _pw / _w ;
+    let newHeight = _ph / ratio;
+    let newWidth = _pw / ratio;
 
-    if (previewImage.height > _h) {
-      let ratio = previewImage.height / _h ;
-      let newHeight = previewImage.height / ratio;
-      let newWidth = previewImage.width / ratio;
-
-      return { width: newWidth, height: newHeight}
-    }
+    return { width: newWidth, height: newHeight};
 
   }
 
