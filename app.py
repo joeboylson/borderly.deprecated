@@ -12,7 +12,7 @@ from PIL import Image, ImageOps
 
 app = Flask(__name__, template_folder='./dist')
 
-static_folder = Blueprint('static', __name__, static_url_path='/static', static_folder='./static')
+static_folder = Blueprint('static', __name__, static_url_path='/api/static', static_folder='./static')
 dist_folder = Blueprint('dist', __name__, static_url_path='', static_folder='./dist')
 
 app.register_blueprint(static_folder)
@@ -80,12 +80,7 @@ def index ():
     return "DEVELOPMENT"
 
 
-@app.route('/downloadfile/<path:filename>')
-def downloadFile (filename):
-  ''' GET - returns "static/<pathname>" '''
-  return send_from_directory(DOWNLOAD_DIRECTORY, filename, as_attachment=True)
-
-@app.route('/border', methods=['POST'])
+@app.route('/api/border', methods=['POST'])
 def upload_file():
   ''' POST - recieves image in formdata - calls "addborder()" - returns filename '''  
 
