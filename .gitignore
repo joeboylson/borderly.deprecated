@@ -1,5 +1,5 @@
-# exclude everything
-static/images/*
 
-# exception to the rule
-!static/images/.gitkeep 
+.vscode
+dist
+node_modules
+package-lock.json

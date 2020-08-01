@@ -6,18 +6,29 @@ import json
 import datetime
 import uuid
 from io import BytesIO
-from flask import Flask, request, redirect, url_for, render_template, send_file, send_from_directory
+from flask import Flask, request, redirect, url_for, render_template, send_file, send_from_directory, Blueprint
 from PIL import Image, ImageOps
 
 
-app = Flask(__name__, static_url_path="", static_folder="static")
+app = Flask(__name__, template_folder='./dist')
+
+static_folder = Blueprint('static', __name__, static_url_path='/static', static_folder='./static')
+dist_folder = Blueprint('dist', __name__, static_url_path='', static_folder='./dist')
+
+app.register_blueprint(static_folder)
+app.register_blueprint(dist_folder)
+
 
 # --------------------------------------------------------------------------------
 # CONSTANTS
 # --------------------------------------------------------------------------------
 
 DOWNLOAD_DIRECTORY = "static/images"
+DIST_DIRECTORY = "dist"
 
+IS_PRODUCTION = os.environ.get('PYTHON_ENV') == 'PRODUCTION'
+DEBUG = True if not IS_PRODUCTION else False
+PORT = 5000 if not IS_PRODUCTION else os.environ.get('PORT')
 
 # --------------------------------------------------------------------------------
 # FUNCTIONS
@@ -32,6 +43,8 @@ def add_border(input_image, output_image, border, color=0):
   //
   returns: None -- saves image to "static/images"
   '''
+
+  print(1)
 
   img = Image.open(input_image)
   w, _ = img.size
@@ -60,7 +73,11 @@ def append_suffix(filename):
 @app.route('/')
 def index ():
   ''' GET - returns "index.html" '''
-  return render_template('index.html')
+
+  if (IS_PRODUCTION):
+    return render_template('index.html')
+  else:
+    return "DEVELOPMENT"
 
 
 @app.route('/downloadfile/<path:filename>')
@@ -91,11 +108,5 @@ def upload_file():
 # --------------------------------------------------------------------------------
 
 if __name__ == '__main__':
-
-  IS_PRODUCTION = os.environ.get('PYTHON_ENV') == 'PRODUCTION'
-  DEBUG = True if not IS_PRODUCTION else False
-  PORT = 5000 if not IS_PRODUCTION else os.environ.get('PORT')
-
   print('::: {}'.format(PORT))
-
   app.run(debug=DEBUG, host='0.0.0.0', port=PORT)

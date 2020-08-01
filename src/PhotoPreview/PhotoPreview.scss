@@ -1,0 +1,42 @@
+@import '../utils/general.scss';
+
+#photo-preview {
+    background-color: $background-color;
+    display: flex;
+    flex-direction: column;
+
+    .photo-wrapper {
+        display: grid;
+        place-items: center;
+        min-height: calc(100vh - 89px);
+    }
+
+    .footer {
+        background-color: $accent;
+        flex: 0 0 89px;
+
+        display: flex;
+        justify-content: space-evenly;
+
+        a {
+            line-height: 89px;
+            flex: 0 0 50%;
+            background-color: $success;
+            text-align: center;
+        }
+
+        button {
+            flex: 0 0 50%;
+            border: none;
+            outline: none;
+            pointer-events: all;
+            cursor: pointer;
+            background-color: $accent;
+        }
+    }
+
+    .anticon {
+        font-size: 32px;
+        color: ghostwhite;
+    }
+}
