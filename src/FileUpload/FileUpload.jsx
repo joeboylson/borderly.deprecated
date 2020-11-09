@@ -16,19 +16,23 @@ const crunchFileName = (fileName) => {
   return `${pre}...${suf}`
 }
 
-const FileUpload = (props) => {
-
-  const { handleSubmit } = props;
+const FileUpload = ({ handleSubmit }) => {
   
-  const [uploadedFile, setUploadedFile] = useState(null);
-  const [fileIsValid, setFileIsValid] = useState(false);
+  const [uploadedFiles, setUploadedFiles] = useState(null);
+  const [filesAreValid, setFilesAreValid] = useState(false);
 
   const handleChange = (e) => {
-    let file = e.target.files[0]
-    let isValidExtension = (new RegExp('(' + validExtensions.join('|').replace(/\./g, '\\.') + ')$')).test(file.name);
+    let files = Array.prototype.slice.call(e.target.files)
 
-    setFileIsValid(isValidExtension)
-    setUploadedFile(file)
+    let filesValidity = files.map(file => {
+      let isValid = (new RegExp('(' + validExtensions.join('|').replace(/\./g, '\\.') + ')$')).test(file.name);
+      return {isValid}
+    })
+
+    if (filesValidity.every(f => f.isValid)) {
+      setFilesAreValid(true)
+      setUploadedFiles(files)
+    }
 
   }
 
@@ -36,22 +40,22 @@ const FileUpload = (props) => {
     <div id={'file-upload'}>
 
       <div className={'input-wrapper'}>
-        <input id={'file'} type={'file'} onChange={handleChange}></input>
+        <input id={'file'} type={'file'} onChange={handleChange} multiple />
         <label htmlFor={'file'}> <PlusOutlined/> </label>
       </div>
 
       <div className={'footer'}>
 
         <div className={'file-info'}>
-          <p>{uploadedFile ? crunchFileName(uploadedFile.name) : 'No File Selected'}</p>
-          <p>Valid: <span className={fileIsValid ? 'valid' : 'invalid'}>{fileIsValid.toString().toUpperCase()}</span></p>
+          {/* <p>{uploadedFile ? crunchFileName(uploadedFile.name) : 'No File Selected'}</p> */}
+          <p>Valid: <span className={filesAreValid ? 'valid' : 'invalid'}>{filesAreValid.toString().toUpperCase()}</span></p>
         </div>
 
         <button 
-          onClick={() => handleSubmit(uploadedFile)}
-          className={fileIsValid ? '' : 'disabled'}
+          onClick={() => handleSubmit(uploadedFiles)}
+          className={filesAreValid ? '' : 'disabled'}
         >
-          { fileIsValid ? 
+          { filesAreValid ? 
             <RightOutlined /> :
             <CloseOutlined />
           }

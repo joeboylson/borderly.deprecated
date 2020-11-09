@@ -2,42 +2,44 @@ import React from 'react';
 import { DownloadOutlined, UndoOutlined } from '@ant-design/icons';
 import './PhotoPreview.scss';
 
-const PhotoPreview = (props) => {
+const getImageSize = (_image) => {
 
-  const { previewImage, reset } = props;
+  let _w = window.innerWidth;
+  let _h = window.innerHeight - 89;
+  let _pw = _image.width;
+  let _ph = _image.height;
+  let sizeForHeight = (_ph / _pw) > (_h / _w);
 
-  console.log(previewImage.src)
+  let ratio = sizeForHeight ? _ph / _h : _pw / _w ;
+  let newHeight = (_ph / ratio);
+  let newWidth = (_pw / ratio);
 
-  const getImageSize = () => {
+  return { width: newWidth, height: newHeight};
+}
 
-    let _w = window.innerWidth;
-    let _h = window.innerHeight - 89;
-    let _pw = previewImage.width;
-    let _ph = previewImage.height;
-    let sizeForHeight = (_ph / _pw) > (_h / _w);
-
-    let ratio = sizeForHeight ? _ph / _h : _pw / _w ;
-    let newHeight = _ph / ratio;
-    let newWidth = _pw / ratio;
-
-    return { width: newWidth, height: newHeight};
-
-  }
+const PhotoPreview = ({ previewImages, download, reset }) => {
 
   return (
     <div id={'photo-preview'}>
       
       <div className={'photo-wrapper'}>
-        <img style={getImageSize()} src={previewImage.src}/>
+        { previewImages.map( (_image, index) => {
+          let _style = getImageSize(_image)
+          return (
+            <div className={'photo-inner'}>
+              <img style={ _style } src={ _image.src }/>
+
+              <div style={ _style } className={'download-wrapper'}>
+                <a href={_image.src} download><DownloadOutlined /></a>
+              </div>
+            </div>
+          )
+
+        })}
       </div>
 
       <div className={'footer'}>
-        <button onClick={reset}>
-          <UndoOutlined />
-        </button>
-        <a href={previewImage.src} download>
-          <DownloadOutlined />
-        </a>
+        <button onClick={reset}><UndoOutlined /></button>
       </div>
 
 

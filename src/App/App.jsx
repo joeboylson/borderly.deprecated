@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { submit } from '../utils/border';
-import 'antd/dist/antd.css';
 import './App.scss';
 
 // components
@@ -11,33 +10,37 @@ import Loading from '../Loading/Loading';
 const App = () => {
 
   const [loading, setLoading] = useState(false);
-  const [previewImage, setPreviewImage] = useState(null);
+  const [previewImages, setPreviewImages] = useState(null);
 
   const reset = () => {
     setLoading(false);
     setPreviewImage(null);
   }
 
-  const submitCallback = (success, imageUrl) => {
-
-    console.log('CALLBACK', success, imageUrl)
-
+  const submitCallback = (success, filenames) => {
+    let _previewImages = [];  
     if (success) {
 
-      let _image = new Image()
-      _image.src = `/api/static/images/${imageUrl}`;
+      filenames.forEach(filename => {
+        let _image = new Image()
+        _image.src = `/api/static/images/${filename}`;
+        
+        _image.onload = () => {
+          _previewImages.push(_image)
+          let _allImagesLoaded = _previewImages.length === filenames.length;
 
-      _image.onload = () => {
-        setLoading(false)
-        setPreviewImage(_image)
-      }
+          if (_allImagesLoaded) {
+            setLoading(false);
+            setPreviewImages(_previewImages);
+          }
+        }
+      })
     }
-
   }
 
-  const handleSubmit = (uploadedFile) => {
+  const handleSubmit = (uploadedFiles) => {
     setLoading(true);
-    submit(uploadedFile, submitCallback)
+    submit(uploadedFiles, submitCallback)
   }
 
   if (loading) return (
@@ -49,8 +52,8 @@ const App = () => {
   return (
 
     <main>
-      { previewImage ? 
-        <PhotoPreview previewImage={previewImage} reset={reset}/> : 
+      { previewImages ? 
+        <PhotoPreview previewImages={previewImages} reset={reset}/> : 
         <FileUpload handleSubmit={handleSubmit}/>
       }
     </main>

@@ -1,36 +1,26 @@
 {
-  "name": "roamio-api",
+  "name": "borderly",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "",
   "proxy": "http://localhost:5000",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "webpack-dev-server --open",
     "build": "webpack",
     "heroku-postbuild": "npm run build",
-    "production": "python app.py"
+    "app": "python app.py"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@ant-design/icons": "^4.2.1",
-    "antd": "^4.3.5",
     "axios": "^0.19.2",
-    "body-parser": "^1.19.0",
-    "connect-ensure-login": "^0.1.1",
-    "csv-stringify": "^5.5.0",
-    "express": "^4.17.1",
-    "express-session": "^1.17.1",
     "lodash": "^4.17.15",
-    "passport": "^0.4.1",
-    "passport-local": "^1.0.0",
-    "pg": "^8.2.1",
+    "node-sass": "^4.14.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-router-dom": "^5.2.0",
-    "sequelize": "^6.1.0",
-    "sqlite3": "^4.2.0"
+    "react-router-dom": "^5.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.10.3",

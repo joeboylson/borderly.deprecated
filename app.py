@@ -87,12 +87,16 @@ def upload_file():
   try:
 
     image_dict = request.files.to_dict()
-    image = image_dict[ list(image_dict.keys())[0] ]
-    filename = append_suffix(image.name)
+    filenames = []
 
-    add_border(input_image=image, output_image=filename, border=5, color='#FFF')
+    for key, value in image_dict.items():
+      image = image_dict[key]
+      filename = append_suffix(image.name)
 
-    return json.dumps({'success': True, 'message': 'SUCCESS', 'data': {'filename': filename}})
+      add_border(input_image=image, output_image=filename, border=5, color='#FFF')
+      filenames.append(filename)
+
+    return json.dumps({'success': True, 'message': 'SUCCESS', 'data': {'filenames': filenames}})
 
   except Exception as e:
     return json.dumps({'success': False, 'message': str(e), 'data': None})
