@@ -4,7 +4,7 @@ import UndoOutlined from '@ant-design/icons/UndoOutlined';
 
 const Nav = ({reset}) => {
   
-  const [infoIsOpen, setInfoIsOpen] = useState(true);
+  const [infoIsOpen, setInfoIsOpen] = useState(false);
 
   const toggleInfoOpen = () => setInfoIsOpen(!infoIsOpen);
 
