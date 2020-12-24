@@ -34,14 +34,14 @@ const Nav = ({reset}) => {
         <section>
           <p>
             For Bug Reports, Feature Suggestions, or Questions &nbsp;
-            <a href={'mailto:joeboylson@gmail.com'}>
+            <a href={'mailto:joeboylson@gmail.com'} target={'_blank'}>
               Contact the Developer
             </a>
           </p>
         </section>
 
         <section>
-          <a href={'https://paypal.me/JoeBoylson?locale.x=en_US'}>
+          <a href={'https://paypal.me/JoeBoylson?locale.x=en_US'} target={'_blank'}>
             Support the Developer
           </a>
         </section>
