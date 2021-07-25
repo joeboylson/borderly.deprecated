@@ -17,17 +17,6 @@ const App = () => {
   const [loading, setLoading] = useState(false);
   const [previewImages, setPreviewImages] = useState(null);
 
-  // useEffect(() => {
-  //   let _filepaths = [
-  //     '20200413_172956-BORDERLY.jpg',
-  //     '20200619_183459-BORDERLY.jpg',
-  //     '20200619_183508-BORDERLY.jpg',
-  //     'ales-nesetril-Im7lZjxeLhg-unsplash-BORDERLY.jpg',
-  //   ]
-
-  //   submitCallback(true, _filepaths)
-  // }, [])
-
   const reset = () => {
     setLoading(false);
     setPreviewImages(null);
@@ -53,10 +42,10 @@ const App = () => {
     }
   };
 
-  const handleSubmit = (uploadedFiles) => {
+  const handleSubmit = (uploadedFiles, borderThickness) => {
     setLoading(true);
     const _uploadedFiles = uploadedFiles.map(it => it.file);
-    submit(_uploadedFiles, submitCallback);
+    submit(_uploadedFiles, borderThickness, submitCallback);
   };
 
   if (loading) return (

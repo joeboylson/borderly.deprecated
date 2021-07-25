@@ -1,15 +1,16 @@
 import axios from 'axios';
+import { uniqueId } from 'lodash';
 
-export const submit = (files, callback) => {
+export const submit = (files, borderThickness, callback) => {
   if (!files || files.length <= 0) return console.log('No file uploaded')
   
   let formData = new FormData();
-  files.forEach(file => formData.append(file.name, file));
-  
+  files.forEach(file => formData.append(`${uniqueId()}-${file.name}`, file));
+  formData.append('borderThickness', borderThickness)
+
   axios.post('/api/border', formData, {
     headers: {'Content-Type': 'multipart/form-data'}
-  }).then(result => {
-  
+  }).then(result => {  
     if (!result.data.success) return console.log(`There was an error submitting your image: ${result.data.message}`)
     callback(result.data.success, result.data.data.filenames)
   })

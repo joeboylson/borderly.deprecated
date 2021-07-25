@@ -107,14 +107,20 @@ def upload_file():
   ''' POST - recieves image in formdata - calls "addborder()" - returns filename '''  
 
   try:
+    border_thickness = request.form['borderThickness']
     image_dict = request.files.to_dict()
     filenames = []
 
-    for key, value in image_dict.items():
+    try:
+      border = int(border_thickness)
+    except Exception as e:
+      border = 5
+
+    for key, _ in image_dict.items():
       image = image_dict[key]
       filename = append_suffix(image.name)
 
-      add_border(input_image=image, output_image=filename, border=5, color='#FFF')
+      add_border(input_image=image, output_image=filename, border=border, color='#FFF')
       filenames.append(filename)
 
     if (IS_PRODUCTION):

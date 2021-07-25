@@ -129,7 +129,8 @@ main {
     margin: 12px;
     overflow: scroll;
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 24px;
 
     #file-list {
 
@@ -160,6 +161,11 @@ main {
                 color: red;
             }
         }
+    }
+
+    #border-thickness-range {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
     }
 
     #submit-button {

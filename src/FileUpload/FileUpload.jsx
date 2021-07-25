@@ -8,6 +8,8 @@ const FileUpload = ({ handleSubmit }) => {
   const [uploadedFiles, setUploadedFiles] = useState(null);
   const [filesAreValid, setFilesAreValid] = useState(false);
 
+  const [borderThickness, setBorderThickness] = useState(5);
+
   useEffect(() => {
     setFilesAreValid(uploadedFiles && uploadedFiles.every(f => f.isValid))
   }, [uploadedFiles]);
@@ -39,7 +41,7 @@ const FileUpload = ({ handleSubmit }) => {
       ) : (
         <div id={'file-list-wrapper'}>
           <div id={'file-list'}>
-            { uploadedFiles.map( (fileObject, index) => {
+            { uploadedFiles && uploadedFiles.map( (fileObject, index) => {
               const { file, isValid } = fileObject;
 
               return (
@@ -55,10 +57,24 @@ const FileUpload = ({ handleSubmit }) => {
               )
             })}
           </div>
+
+          <div id="border-thickness-range">
+            <label htmlFor="borderThickness">Border Thickness: <b>{borderThickness}%</b></label>
+            <input
+              type="range" 
+              name="borderThickness" 
+              id="border-thickness" 
+              defaultValue={borderThickness}
+              min={1}
+              max={100}
+              onChange={e => setBorderThickness(Number(e.target.value))}
+            ></input>
+          </div>
+
           <button 
             id={'submit-button'}
             disabled={!filesAreValid}
-            onClick={() => handleSubmit(uploadedFiles)}
+            onClick={() => handleSubmit(uploadedFiles, borderThickness)}
           >SUBMIT</button>
         </div>
       )}
