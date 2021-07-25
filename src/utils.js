@@ -30,7 +30,7 @@ export const crunchFileName = (fileName) => {
 
 const validExtensions = [".jpg", ".jpeg", ".bmp", ".gif", ".png"];
 export const fileIsValid = (file) => {
-  let isValid = (new RegExp('(' + validExtensions.join('|').replace(/\./g, '\\.') + ')$')).test(file.name);
+  let isValid = (new RegExp('(' + validExtensions.join('|').replace(/\./g, '\\.') + ')$')).test(file.name.toLowerCase());
   return {file, isValid};
 };
 
