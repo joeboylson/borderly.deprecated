@@ -103,9 +103,10 @@ main {
         transition-duration: 0.25s;
         cursor: pointer;
         
-        width: calc(100% - 24px);
-        height: calc(100vh - calc(#{$nav-height} + 24px));
-        margin: 12px;
+        width: calc(100vw - calc(#{$nav-height * 2}));
+        max-width: 738px;
+        height: calc(100vh - calc(#{$nav-height * 3}));
+        margin: $nav-height;
 
         &:hover {
             background-color: #f0f0f0;
@@ -125,12 +126,12 @@ main {
 #file-list-wrapper {
 
     padding-top: $nav-height;
-    width: calc(100% - 24px);
-    margin: 12px;
+    width: calc(100% - calc(#{$nav-height} * 2));
+    margin: $nav-height;
     overflow: scroll;
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 30px;
 
     #file-list {
 
@@ -185,9 +186,10 @@ main {
 }
 
 #photo-preview {
-    padding-top: calc(#{$nav-height} + 12px);
-    width: calc(100% - 24px);
-    height: calc(100vh - (#{$nav-height} + 24px));
+    padding-top: calc(#{$nav-height} * 2);
+    padding-bottom: 25vh;
+    height: calc(100vh - #{$nav-height * 3});
+    width: calc(100% - calc(#{$nav-height} * 2));
     overflow: scroll;
     margin: auto;
 
@@ -196,16 +198,12 @@ main {
         display: flex;
         flex-direction: column;
         border: 1px solid black;
-        margin-bottom: 12px;
+        margin-bottom: 30px;
         background-color:  #f0f0f0;;
-
-        &:last-child {
-            margin-bottom: 0;
-        }
         
         img {
             margin: auto;
-            padding: 12px;
+            padding: 15px;
         }
 
         .download-wrapper {
@@ -214,7 +212,7 @@ main {
             background-color: white;
             
             a {
-                padding: 12px 0;
+                padding: 15px 0;
                 color: black;
                 border-top: 1px solid black;
                 width: 100%;
